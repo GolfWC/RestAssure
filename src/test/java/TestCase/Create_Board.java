@@ -2,7 +2,6 @@ package TestCase;
 import org.json.simple.JSONObject;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
@@ -84,6 +83,7 @@ public class Create_Board {
 			Response response = request.post("/boards");
 			// verify response
 			Assert.assertEquals(response.getStatusCode(), 200);
+			
 	}
 
 }
