@@ -1,7 +1,4 @@
 package TestCase;
-
-import static org.testng.Assert.assertEquals;
-
 import org.json.simple.JSONObject;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -15,11 +12,11 @@ public class Create_Board {
 	@Test(priority = 1)
 	public void postNewBoard() {
 		
-		
-			// creating a request pointing to the service endpoint
+			// specify base URL in order to creating a request pointing to the service endpoint
 			RestAssured.baseURI = "https://api.trello.com/1";
+			// request object 
 			RequestSpecification request = RestAssured.given();
-			// creating the body for the request in JSON format
+			// response object creating the body for the request in JSON format
 			JSONObject rp = new JSONObject();
 			rp.put("key", "f0470a5cae99c0f216bd61d85883b441");
 			rp.put("token", "1b64c7918e4d2eb84cf396ad196e9914d06f7fe177e2176e92231b34a8b3d3ab");

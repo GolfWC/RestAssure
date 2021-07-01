@@ -10,19 +10,24 @@ import io.restassured.specification.RequestSpecification;
 
 public class Verify_Board_Numbers {
 	
+	private String key = "f0470a5cae99c0f216bd61d85883b441";
+	private String token = "1b64c7918e4d2eb84cf396ad196e9914d06f7fe177e2176e92231b34a8b3d3ab";
+	private String idBoard ="";
+	private String idList = "";
+	int statusCode;
+	// Create TestNG method --annotation will control execution flow of method
 	@Test(enabled = false)
 	public void postNewBoard() {
-		int statusCode;
-		int boardCount = 0;
+		int boardCount = 1;
 		do {
-			// creating a request pointing to the service endpoint
+			// specify base URL in order to creating a request pointing to the service endpoint
 			RestAssured.baseURI = "https://api.trello.com/1";
 			RequestSpecification request = RestAssured.given();
 			// creating the body for the request in JSON format
 			JSONObject rp = new JSONObject();
-			rp.put("key", "f0470a5cae99c0f216bd61d85883b441");
-			rp.put("token", "1b64c7918e4d2eb84cf396ad196e9914d06f7fe177e2176e92231b34a8b3d3ab");
-			rp.put("name", "PongInterview1");
+			rp.put("key", key);
+			rp.put("token", token);
+			rp.put("name", "PongBoard" + boardCount);
 			// add the JSON formatted request and send request
 			// add header telling the rquest is in JSON format
 			request.header("Content-Type", "application/json");
@@ -42,33 +47,22 @@ public class Verify_Board_Numbers {
 	
 	@Test(enabled = true)
 	public void postNewList() {
-		
-		int statusCode;
-		int ListCount = 0;
+		int ListCount = 1;
 		do {
-			// creating a request pointing to the service endpoint
+			
 			RestAssured.baseURI = "https://api.trello.com/1/";
 			RequestSpecification request = RestAssured.given();
-			// creating the body for the request in JSON format
 			JSONObject rp = new JSONObject();
-			rp.put("key", "f0470a5cae99c0f216bd61d85883b441");
-			rp.put("token", "1b64c7918e4d2eb84cf396ad196e9914d06f7fe177e2176e92231b34a8b3d3ab");
-			rp.put("name", "PongList");
-			rp.put("idBoard", "60dd1e58e4fb3a602336ded9");
-			// add the JSON formatted request and send request
-			// add header telling the rquest is in JSON format
+			rp.put("key", key);
+			rp.put("token", token);
+			rp.put("name", "PongList" + ListCount);
+			rp.put("idBoard", idBoard);
 			request.header("Content-Type", "application/json");
-//			request.header("key", "f0470a5cae99c0f216bd61d85883b441");
-//			request.header("token", "1b64c7918e4d2eb84cf396ad196e9914d06f7fe177e2176e92231b34a8b3d3ab");
-//			request.header("name", "Testing-1");
-			
-			// add JSON body to the request
 			request.body(rp.toJSONString());
-			// post the request and check the response
+
 			Response response = request.post("lists");
 			
 			System.out.println(response.prettyPrint());
-			// verify response
 			Assert.assertEquals(response.getStatusCode(), 200);
 			statusCode = response.getStatusCode();
 			ListCount++;
@@ -80,32 +74,21 @@ public class Verify_Board_Numbers {
 	
 	@Test(enabled = false)
 	public void postNewCard() {
-		
-		int statusCode;
 		int cardCount = 0;
 		do {
-			// creating a request pointing to the service endpoint
+
 			RestAssured.baseURI = "https://api.trello.com/1/";
 			RequestSpecification request = RestAssured.given();
-			// creating the body for the request in JSON format
+
 			JSONObject rp = new JSONObject();
-			rp.put("key", "f0470a5cae99c0f216bd61d85883b441");
-			rp.put("token", "1b64c7918e4d2eb84cf396ad196e9914d06f7fe177e2176e92231b34a8b3d3ab");
-			rp.put("idList", "60dd179a08637b83b3a6746a");
-			// add the JSON formatted request and send request
-			// add header telling the rquest is in JSON format
+			rp.put("key", key);
+			rp.put("token",token);
+			rp.put("idList", idList);
+
 			request.header("Content-Type", "application/json");
-//			request.header("key", "f0470a5cae99c0f216bd61d85883b441");
-//			request.header("token", "1b64c7918e4d2eb84cf396ad196e9914d06f7fe177e2176e92231b34a8b3d3ab");
-//			request.header("name", "Testing-1");
-			
-			// add JSON body to the request
 			request.body(rp.toJSONString());
-			// post the request and check the response
 			Response response = request.post("cards");
-			
 			System.out.println(response.prettyPrint());
-			// verify response
 			Assert.assertEquals(response.getStatusCode(), 200);
 			statusCode = response.getStatusCode();
 			cardCount++;
